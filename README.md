@@ -24,6 +24,13 @@ Durante a apresentação final, será feita uma **demonstração prática** do f
 
 ---
 
+## 🗂️ Organização
+
+- Pasta **src**: Contém os arquivosfonte(.c);
+- Pasta **include**: Contém os cabeçalho dos arquivos;
+- Pasta **build**: Contém os arquivos binários;
+- Arquivo **app**: Arquivo executável.
+
 ## ⚙️ Como Compilar e Executar
 Clone o repositório e acesse a pasta do projeto:
 ```bash
