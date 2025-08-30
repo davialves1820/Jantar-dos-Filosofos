@@ -3,25 +3,20 @@
 
 int main(void) {
 
-    pthread_t threads[TAM];
-    int ids[TAM];
+    int escolha;
 
-    // Criacao das threads (Filosofos)
-    for (int i = 0; i < TAM; i++) {
-        ids[i] = i;
-        pthread_create(&threads[i], NULL, vida_filosofo_semaforo, &ids[i]);
+    printf("1- DEADLOCK\n");
+    printf("2- SEMAFARO\n");
+    printf("Opcao: ");
+    scanf("%d", &escolha);
+
+    if (escolha == 1) {
+        init_deadlock();
+    } else if (escolha == 2) {
+        init_semaforo();
+    } else {
+        printf("Opcao invalida\n");
     }
 
-    // Avisa no terminal quando ocorrer o deadlock
-    //sleep(10);
-    //printf("Se voce esta vendo esta mensagem e nada mais aconteceu, provavelmente houve um deadlock.\n");
-
-    // Espera as threads terminarem(nunca ocorre nesse caso)
-    for (int i = 0; i < TAM; i++) {
-        pthread_join(threads[i], NULL);
-    }
-
-    printf("SEMAFARO TERMINOU A EXECUCAO\n");
-    
     return 0;
 }
