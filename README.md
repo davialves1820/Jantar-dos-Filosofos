@@ -8,9 +8,9 @@
 
 ## 📖 Descrição do Projeto
 Este repositório contém a implementação do projeto final da disciplina de **Sistemas Operacionais**.  
-O objetivo é aplicar na prática os conceitos vistos em sala de aula, por meio do desenvolvimento de um projeto em **C/C++ no Linux**.  
+O objetivo é aplicar na prática os conceitos vistos em sala de aula, por meio do desenvolvimento de um projeto em **C no Linux**.  
 
-O problema escolhido para o projeto foi o The Sleeping Teaching Assistant( Jantar dos Filósofos):
+O problema escolhido para o projeto foi o The Dining-Philosophers Problem( Jantar dos Filósofos):
 
 O Jantar dos Filósofos, proposto por Edsger W. Dijkstra em 1965, é um problema clássico de sincronização em sistemas operacionais. Ele descreve cinco filósofos sentados em uma mesa circular que alternam entre pensar e comer, precisando de dois hashis (um à esquerda e outro à direita) para se alimentar.
 
@@ -23,7 +23,7 @@ Durante a apresentação final, será feita uma **demonstração prática** do f
 ---
 
 ## 🛠️ Tecnologias Utilizadas
-- **Linguagens:** C / C++  
+- **Linguagens:** C 
 - **Sistema Operacional:** Linux 
 - **Ferramentas adicionais:** Makefile, GitHub, Docker (opcional)  
 
