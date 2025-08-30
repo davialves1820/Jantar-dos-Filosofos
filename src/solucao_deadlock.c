@@ -1,17 +1,5 @@
 #include "solucao_deadlock.h"
 
-pthread_mutex_t garfos[TAM]; // Cada garfo e representado por um mutex
-
-// Pega o indice do garfo da esquerda
-int esquerda(int i) {
-    return i;
-}
-
-// Pega o indice do garfo da direita
-int direita(int i) {
-    return (i+1) % TAM;
-}
-
 // Funcao principal de cada thread(filosofo)
 void *vida_filosofo_deadlock(void *arg) {
     int id = *(int*)arg; // ID do filosofo

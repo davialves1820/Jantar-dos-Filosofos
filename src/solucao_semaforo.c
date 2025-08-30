@@ -1,4 +1,4 @@
-#include <semaphore.h>
+#include "solucao_semaforo.h"
 
 pthread_mutex_t garfos[TAM]; // Cada garfo e representado por um mutex
 
@@ -17,19 +17,19 @@ int direita(int i) {
 void *vida_filosofo_semaforo(void *arg) {
     int id = *(int*)arg; // Fazendo cast de ponteiro genérico para inteiro
 
-    printf("Filosofo %d esta pensando...\n", id);
-    sleep(2);
+    printf("Filosofo SEMAFARO %d esta pensando...\n", id);
+    //sleep(2);
 
     sem_wait(&garcom); // Pedindo "permissão" para o garçom de modo a garantir que há espaço para todos comerem
 
     // Se o filósofo recebeu permissão do garçom ele se senta e pega os garfos para comer
     pthread_mutex_lock(&garfos[esquerda(id)]);
-    printf("Filosofo %d pegou o garfo da esquerda\n", id);
+    printf("Filosofo SEMAFARO %d pegou o garfo da esquerda\n", id);
     pthread_mutex_lock(&garfos[direita(id)]);
-    printf("Filosofo %d pegou o garfo da direita e esta comendo.\n", id);
+    printf("Filosofo SEMAFARO %d pegou o garfo da direita e esta comendo.\n", id);
 
     // Come
-    printf("Filosofo %d está comendo!\n", id);
+    printf("Filosofo SEMAFARO %d está comendo!\n", id);
     sleep(2);
 
     // Devolve os garfos, primeiro o da direita, depois o da esquerda
@@ -38,7 +38,7 @@ void *vida_filosofo_semaforo(void *arg) {
 
     // O filósofo avisa ao garçom que terminou de comer e um espaço está livre
     sem_post(&garcom);
-    printf("Filosofo %d terminou de comer, devolveu os garfos e avisou ao garcom.\n", id);
+    printf("Filosofo SEMAFARO %d terminou de comer, devolveu os garfos e avisou ao garcom.\n", id);
 
     return NULL;
 }
