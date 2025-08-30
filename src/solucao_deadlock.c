@@ -1,6 +1,6 @@
 #include "solucao_deadlock.h"
 
-pthread_mutex_t garfos[TAM]; // 
+pthread_mutex_t garfos[TAM]; // Cada garfo e representado por um mutex
 
 // Pega o indice do garfo da esquerda
 int esquerda(int i) {
@@ -23,7 +23,7 @@ void *vida_filosofo_deadlock(void *arg) {
         printf("Filosofo %d pegou o garfo da esquerda\n", id);
 
         pthread_mutex_lock(&garfos[direita(id)]);
-        printf("Filosofo %d pegou o gardo da direita e esta comendo.\n", id);
+        printf("Filosofo %d pegou o garfo da direita e esta comendo.\n", id);
 
         sleep(2); // Simula tempo para comer
 
