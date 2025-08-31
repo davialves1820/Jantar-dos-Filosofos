@@ -59,6 +59,10 @@ make
 ---
 
 ## 📊 Avaliação de Desempenho
+Para a avaliação de desempenho serão comparadas os seguintes parâmetros para cada execução:
+- Tempo de espera individual para pegar permissão do garçom;
+- Número de bloqueios;
+- Tempo total da execução do programa.
 
 ---
 
