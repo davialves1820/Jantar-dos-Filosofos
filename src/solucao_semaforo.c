@@ -7,7 +7,7 @@ void *vida_filosofo_semaforo(void *arg) {
     int refeicoes = 0;
 
     while (refeicoes < MAX_REFEICAO) {
-        printf("Filosofo SEMAFARO %d esta pensando...\n", id);
+        printf("Filosofo SEMAFORO %d esta pensando...\n", id);
         sleep(1);
 
         sem_wait(&garcom); // Pedindo "permissão" para o garçom de modo a garantir que há espaço para todos comerem
@@ -48,14 +48,14 @@ void init_semaforo(void) {
         pthread_mutex_init(&garfos[i], NULL);
     }
 
-    sem_init(&garcom, 0, TAM -1); 
+    sem_init(&garcom, 0, TAM -1); // Garantindo que no maximo TAM - 1 filosofos tentem comer ao mesmo tempo evitamos a espera circular
 
     for (int i = 0; i < TAM; i++) {
         ids[i] = i;
         pthread_create(&filosofos[i], NULL, vida_filosofo_semaforo, &ids[i]);
     }
 
-    // Espera as threads terminarem(nunca ocorre nesse caso)
+    // Espera todas as threads finalizarem
     for (int i = 0; i < TAM; i++) {
         pthread_join(filosofos[i], NULL);
     }
@@ -63,7 +63,6 @@ void init_semaforo(void) {
     sem_destroy(&garcom);
     printf("Todos os filosofos comeram uma vez, fim da execucao.\n");
 
-    printf("Todos os filosofos comeram uma vez, fim da execucao.\n");
     clock_gettime(CLOCK_MONOTONIC, &fim);
 
     double tempo = (fim.tv_sec - inicio.tv_sec) + (fim.tv_nsec - inicio.tv_nsec) / 1e9;

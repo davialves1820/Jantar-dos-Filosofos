@@ -6,7 +6,7 @@ void *vida_filosofo_deadlock(void *arg) {
     int refeicoes = 0;
 
     while (refeicoes < MAX_REFEICAO) {
-        printf("Filosofo %d esta pensando...\n", id);
+        printf("Filosofo DEADLOCK %d esta pensando...\n", id);
 
         sleep(1);
 

@@ -18,4 +18,4 @@ void *vida_filosofo(void *arg); // Estrutura para qualquer solucao
 int esquerda(int i);
 int direita(int i);
 
-#endif
+#endif //FILOSOFO_H
