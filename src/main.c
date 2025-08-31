@@ -7,6 +7,7 @@ int main(void) {
     int escolha;
 
     printf("1- DEADLOCK\n");
+    printf("2- MONITOR\n");
     printf("2- SEMAFORO\n");
     printf("Opcao: ");
     scanf("%d", &escolha);
