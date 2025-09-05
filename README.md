@@ -3,6 +3,7 @@
 ## 👥 Integrantes
 - Davi Alves Rodrigues
 - Ryan Caetano Cesar de Araújo
+- Larissa de Carvalho Donato
 
 ---
 
@@ -24,23 +25,25 @@ Durante a apresentação final, será feita uma **demonstração prática** do f
 
 ## 🛠️ Tecnologias Utilizadas
 - **Linguagens:** C 
-- **Sistema Operacional:** Linux 
+- **Sistema Operacional:** Linux (Recomendado: Ambiente WSL ou nativo basedo em Debian/Ubuntu)
 - **Ferramentas adicionais:** Makefile, GitHub, Docker (opcional)  
 
 ---
 
 ## 🗂️ Organização
 
-- Pasta **src**: Contém os arquivosfonte(.c);
-- Pasta **include**: Contém os cabeçalho dos arquivos;
-- Pasta **build**: Contém os arquivos binários;
+- Pasta **src**: Contém os arquivos-fonte(.c);
+- Pasta **include**: Contém os cabeçalho dos arquivos (.h);
+- Pasta **build**: Contém os arquivos binários (.o) gerados durante a compilação;
 - Arquivo **app**: Arquivo executável.
+- Arquivo **Makefile**: Árquivo com as instruções para compilação do projeto.
 
 ## ⚙️ Como Compilar e Executar
+
 Clone o repositório e acesse a pasta do projeto:
 ```bash
-git clone https://github.com/usuario/projeto-so.git
-cd projeto-so
+git clone https://github.com/davialves1820/Trabalho-SO.git
+cd Trabalho-SO
 ```
 ### Compilação
 ```bash
@@ -49,12 +52,13 @@ make
 
 ### Execução
 ```bash
-./projeto
+./app
 ```
 
 ---
 
 ## 💻 Instruções de Uso
+
 
 ---
 

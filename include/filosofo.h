@@ -12,6 +12,11 @@
 
 extern pthread_mutex_t garfos[TAM]; // Cada garfo e representado por um mutex
 
+// Métricas globais para análise de desempenho
+extern int refeicoes[TAM]; // Numero de refeicoes feitas por cada filosofo
+extern double tempo_espera[TAM]; // Tempo total de espera de cada filosofo
+extern int bloqueios[TAM]; // Numero de vezes que cada filosofo ficou bloqueado
+
 void *vida_filosofo(void *arg); // Estrutura para qualquer solucao
 
 // Funcoes auxiliares

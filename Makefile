@@ -9,6 +9,9 @@ BUILD_DIR = build
 # Flags de compilação
 CFLAGS = -Wall -I$(INCLUDE_DIR) -g
 
+# Flags de linkagem
+LDFLAGS = -lpthread
+
 # Lista de arquivos-fonte
 SRCS = $(wildcard $(SRC_DIR)/*.c)
 

@@ -41,7 +41,11 @@ void devolver_garfos(int id) {
     printf("Filosofo %d terminou de comer e devolveu os garfos.\n", id);
 }
 
-static void faminto(int id, int *refeicoes) {
+static void faminto(int id) {
+    // Inicia medicao do tempo de espera
+    struct timespec start;
+    clock_gettime(CLOCK_MONOTONIC, &start);
+
     pthread_mutex_lock(&monitor_mutex);
     // Trancando o monitor para fazer o acesso do estado, de modo a garantir exclusividade mutua e evitar deadlock
 
@@ -53,6 +57,7 @@ static void faminto(int id, int *refeicoes) {
     while(estados[id] != COMENDO) {
         // Destranca o monitor, coloca filosofo na fila e dorme, retomando quando acordado e retrancando monitor
         // Filosofo e acordado quando um de seus vizinhos termina de comer e e sua chance de comer
+        bloqueios[id]++; // Incrementa o numero de bloqueios do filosofo
         pthread_cond_wait(&condicoes[id], &monitor_mutex);
     }
 
@@ -62,13 +67,18 @@ static void faminto(int id, int *refeicoes) {
     // Devemos manter o monitor trancado apenas quando estivermos alterando estados que podem causar problemas
     // Pegar os garfos e uma açao segura visto que os filosofos vizinhos nao tentarao pega-los
 
+    // Mede o tempo de espera para pegar os garfos
+    struct timespec end;
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    double espera = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+    tempo_espera[id] += espera;
+
     pegar_garfos(id);
 
     // Come
-    printf("Filosofo %d está comendo!\n", id);
     sleep(2);
     // sleep deve ocorrer com o monitor destrancado para nao inibir filosofos que logicamente conseguiriam comer
-    (*refeicoes)++;
+    refeicoes[id]++; // Incrementa o numero de refeicoes
 
     // O filosofo comeu agora ira devolver os garfos, voltar a pensar e avisar seus vizinhos
 
@@ -87,13 +97,17 @@ static void faminto(int id, int *refeicoes) {
 
 void *vida_filosofo_monitor(void *arg) {
     int id = *(int *)arg;
-    int refeicoes = 0;
+    
+    // Inicializa métricas
+    refeicoes[id] = 0;
+    tempo_espera[id] = 0.0;
+    bloqueios[id] = 0;
 
-    while (refeicoes < MAX_REFEICAO) {
+    while (refeicoes[id] < MAX_REFEICAO) {
         printf("Filosofo MONITOR %d esta pensando...\n", id);
         sleep(1);
 
-        faminto(id, &refeicoes); // O Filosofo ficou faminto
+        faminto(id); // O Filosofo ficou faminto
 
     }
 
@@ -133,6 +147,27 @@ void init_monitor(void){
     clock_gettime(CLOCK_MONOTONIC, &fim);
 
     double tempo = (fim.tv_sec - inicio.tv_sec) + (fim.tv_nsec - inicio.tv_nsec) / 1e9;
-    printf("Tempo: %lf\n", tempo);
-}
+    
+    // Calculo e exibicao das metricas
+    double media_espera = 0.0;
+    int total_refeicoes = 0;
+    int total_bloqueios = 0;
+    int starvation = 0;
 
+    for (int i = 0; i < TAM; i++) {
+        media_espera += tempo_espera[i] / TAM;
+        total_refeicoes += refeicoes[i];
+        total_bloqueios += bloqueios[i];
+        if (refeicoes[i] < MAX_REFEICAO) {
+            starvation++;
+        }
+    }
+    media_espera /= total_refeicoes > 0 ? total_refeicoes : 1;
+
+    printf("\n--- Métricas da Solução Monitor ---\n");
+    printf("Tempo de execução total: %lf segundos\n", tempo);
+    printf("Quantidade total de refeições: %d (média: %.2f por filósofo)\n", total_refeicoes, (double)total_refeicoes / TAM);
+    printf("Tempo de espera médio por refeição: %lf segundos\n", media_espera);
+    printf("Quantidade de starvation: %d\n", starvation);
+    printf("Número total de bloqueios: %d\n", total_bloqueios);
+}

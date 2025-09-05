@@ -4,12 +4,23 @@ sem_t garcom; // O semáforo que regula a quantidade máxima de filósofos comen
 
 void *vida_filosofo_semaforo(void *arg) {
     int id = *(int*)arg; // Fazendo cast de ponteiro genérico para inteiro
-    int refeicoes = 0;
 
-    while (refeicoes < MAX_REFEICAO) {
+    // Inicializa métricas
+    refeicoes[id] = 0;
+    tempo_espera[id] = 0.0;
+    bloqueios[id] = 0;
+
+    while (refeicoes[id] < MAX_REFEICAO) {
         printf("Filosofo SEMAFORO %d esta pensando...\n", id);
         sleep(1);
 
+        // Inicia medicao do tempo de espera
+        struct timespec start;
+        clock_gettime(CLOCK_MONOTONIC, &start);
+
+        int val;
+        sem_getvalue(&garcom, &val);
+        if (val == 0) bloqueios[id]++;
         sem_wait(&garcom); // Pedindo "permissão" para o garçom de modo a garantir que há espaço para todos comerem
 
         // Se o filósofo recebeu permissão do garçom ele se senta e pega os garfos para comer
@@ -18,10 +29,15 @@ void *vida_filosofo_semaforo(void *arg) {
         pthread_mutex_lock(&garfos[direita(id)]);
         printf("Filosofo %d pegou o garfo da direita e esta comendo.\n", id);
 
+        // Mede o tempo de espera para pegar os garfos
+        struct timespec end;
+        clock_gettime(CLOCK_MONOTONIC, &end);
+        double espera = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+        tempo_espera[id] += espera;
+
         // Come
-        printf("Filosofo %d está comendo!\n", id);
         sleep(2);
-        refeicoes++;
+        refeicoes[id]++ ; // Incrementa o numero de refeicoes
 
         // Devolve os garfos, primeiro o da direita, depois o da esquerda
         pthread_mutex_unlock(&garfos[direita(id)]);
@@ -29,7 +45,7 @@ void *vida_filosofo_semaforo(void *arg) {
 
         // O filósofo avisa ao garçom que terminou de comer e um espaço está livre
         sem_post(&garcom);
-        printf("Filosofo %d terminou de comer, devolveu os garfos e avisou ao garcom.\n", id);
+        printf("Filosofo %d terminou de comer e devolveu os garfos.\n", id);
 
     }
 
@@ -61,10 +77,32 @@ void init_semaforo(void) {
     }
 
     sem_destroy(&garcom);
-    printf("Todos os filosofos comeram uma vez, fim da execucao.\n");
-
+   
     clock_gettime(CLOCK_MONOTONIC, &fim);
-
     double tempo = (fim.tv_sec - inicio.tv_sec) + (fim.tv_nsec - inicio.tv_nsec) / 1e9;
-    printf("Tempo: %lf\n", tempo);
+
+    // Calculo e exibicao das metricas
+    double media_espera = 0.0;
+    int total_refeicoes = 0;
+    int total_bloqueios = 0;
+    int starvation = 0;
+
+    for (int i = 0; i < TAM; i++) {
+        media_espera += tempo_espera[i] / TAM;
+        total_refeicoes += refeicoes[i];
+        total_bloqueios += bloqueios[i];
+        if (refeicoes[i] < MAX_REFEICAO) {
+            starvation++;
+        }
+    }
+    media_espera /= total_refeicoes > 0 ? total_refeicoes : 1;
+    
+    printf("\n--- Métricas da Solução Semáforo ---\n");
+    printf("Tempo de execução total: %lf segundos\n", tempo);
+    printf("Quantidade total de refeições: %d (média: %.2f por filósofo)\n", total_refeicoes, (double)total_refeicoes / TAM);
+    printf("Tempo de espera médio por refeição: %lf segundos\n", media_espera);
+    printf("Quantidade de starvation (filósofos que não comeram %d vezes): %d\n", MAX_REFEICAO, starvation);
+    printf("Número total de bloqueios: %d\n", total_bloqueios);
+
+    printf("Todos os filosofos comeram %d vezes, fim da execucao.\n", MAX_REFEICAO);
 }

@@ -2,13 +2,18 @@
 #include "solucao_semaforo.h"
 #include "solucao_monitor.h"
 
+// Definições globais para métricas (definidas aqui para evitar múltiplas definições)
+int refeicoes[TAM] = {0};
+double tempo_espera[TAM] = {0.0};
+int bloqueios[TAM] = {0};
+
 int main(void) {
 
     int escolha;
 
     printf("1- DEADLOCK\n");
     printf("2- MONITOR\n");
-    printf("2- SEMAFORO\n");
+    printf("3- SEMAFORO\n");
     printf("Opcao: ");
     scanf("%d", &escolha);
 
