@@ -1,6 +1,7 @@
 #include "solucao_deadlock.h"
 #include "solucao_semaforo.h"
 #include "solucao_monitor.h"
+#include "solucao_semaforo_controle.h"
 
 // Definições globais para métricas (definidas aqui para evitar múltiplas definições)
 int refeicoes[TAM] = {0};
@@ -14,6 +15,7 @@ int main(void) {
     printf("1- DEADLOCK\n");
     printf("2- MONITOR\n");
     printf("3- SEMAFORO\n");
+    printf("4- SEMAFORO COM CONTROLE\n");
     printf("Opcao: ");
     scanf("%d", &escolha);
 
@@ -28,6 +30,10 @@ int main(void) {
 
         case 3:
             init_semaforo();
+            break;
+
+        case 4:
+            init_semaforo_controle();
             break;
 
         default:
