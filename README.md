@@ -59,6 +59,22 @@ make
 
 ## 💻 Instruções de Uso
 
+Ao iniciar, o programa exibirá um menu para que você escolha qual solução do problema dos filósofos deseja executar:
+```bash
+1- DEADLOCK
+2- MONITOR
+3- SEMAFORO
+4- SEMAFORO COM CONTROLE
+Opcao:
+```
+
+Digite o número correspondente à solução desejada e pressione <kbd>Enter</kbd>.
+
+### Observação:
+
+- **Opções 2, 3 e 4** rodarão até o fim e exibirão as métricas de desempenho.
+
+- **Opção 1 (Deadlock)** foi projetada para travar. Após os filósofos pegarem o primeiro garfo, a simulação irá parar, e você precisará encerrá-la manualmente com <kbd>Ctrl</kbd>+<kbd>C</kbd>.
 
 ---
 
