@@ -80,8 +80,8 @@ Digite o número correspondente à solução desejada e pressione <kbd>Enter</kb
 
 ## 📊 Avaliação de Desempenho
 Para a avaliação de desempenho serão comparadas os seguintes parâmetros para cada execução:
-- Tempo de espera individual para pegar permissão do garçom;
-- Número de bloqueios;
+- Tempo de espera individual para pegar permissão do garçom: quanto tempo cada filósofo teve que esperar antes de conseguir acesso ao recurso compartilhado, ou seja, antes de começar a pegar os garfos e comer;
+- Número de bloqueios: sinaliza quantas vezes uma thread (filósofo) tentou acessar um recurso crítico (como garfos ou semáforos) e teve que esperar porque o recurso estava ocupado;
 - Tempo total da execução do programa.
 
 ---
