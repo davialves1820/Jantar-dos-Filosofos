@@ -94,9 +94,8 @@ void init_semaforo_controle(void) {
     clock_gettime(CLOCK_MONOTONIC, &fim);
     double tempo = (fim.tv_sec - inicio.tv_sec) + (fim.tv_nsec - inicio.tv_nsec) / 1e9;
 
-    // Metricas para saber se ouve starvation
+    // Metrica para saber se ouve starvation
     double limite_espera = 3; // Em segundos
-    int limite_bloqueios = 20;
 
     // Calculo e exibicao das metricas
     double media_espera = 0.0;
@@ -113,7 +112,7 @@ void init_semaforo_controle(void) {
 
         printf("Filosofo %d: Refeições = %d, Espera média = %.2lf s, Bloqueios = %d", i, refeicoes[i], espera_media, bloqueios[i]);
 
-        if (espera_media >= limite_espera || bloqueios[i] > limite_bloqueios) {
+        if (espera_media >= limite_espera) {
             starvation++;
             printf(" <-- Potencial starvation");
         }
