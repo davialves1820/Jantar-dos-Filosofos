@@ -10,7 +10,8 @@ void *vida_filosofo_semaforo_controle(void *arg) {
     tempo_espera[id] = 0.0;
     bloqueios[id] = 0;
 
-    while (refeicoes[id] < MAX_REFEICAO) {
+    time_t inicio = time(NULL);
+    while (difftime(time(NULL), inicio) < TEMPO_MAXIMO) {
         printf("Filosofo SEMAFORO_CONTROLE %d esta pensando...\n", id);
         sleep(1);
 
@@ -93,22 +94,32 @@ void init_semaforo_controle(void) {
     clock_gettime(CLOCK_MONOTONIC, &fim);
     double tempo = (fim.tv_sec - inicio.tv_sec) + (fim.tv_nsec - inicio.tv_nsec) / 1e9;
 
-    // Calcula e exibe as métricas
+    // Metricas para saber se ouve starvation
+    double limite_espera = 3; // Em segundos
+    int limite_bloqueios = 20;
+
+    // Calculo e exibicao das metricas
     double media_espera = 0.0;
     int total_refeicoes = 0;
-    int starvation = 0;
     int total_bloqueios = 0;
+    int starvation = 0;
 
+    printf("\n--- Relatório Individual dos Filósofos ---\n");
     for (int i = 0; i < TAM; i++) {
-        media_espera += tempo_espera[i] / TAM;
+        double espera_media = tempo_espera[i] / (refeicoes[i] > 0 ? refeicoes[i] : 1);
+        media_espera += espera_media / TAM;
         total_refeicoes += refeicoes[i];
         total_bloqueios += bloqueios[i];
-        if (refeicoes[i] < MAX_REFEICAO) {
-            starvation++;
-        }
-    }
-    media_espera /= total_refeicoes > 0 ? total_refeicoes : 1;
 
+        printf("Filosofo %d: Refeições = %d, Espera média = %.2lf s, Bloqueios = %d", i, refeicoes[i], espera_media, bloqueios[i]);
+
+        if (espera_media >= limite_espera || bloqueios[i] > limite_bloqueios) {
+            starvation++;
+            printf(" <-- Potencial starvation");
+        }
+        printf("\n");
+    }
+    
     // Exibe as métricas
     printf("\n--- Métricas da Solução Semáforo com Controle ---\n");
     printf("Tempo de execução total: %lf segundos\n", tempo);
@@ -116,6 +127,4 @@ void init_semaforo_controle(void) {
     printf("Tempo de espera médio por refeição: %lf segundos\n", media_espera);
     printf("Quantidade de starvation: %d\n", starvation);
     printf("Número total de bloqueios: %d\n", total_bloqueios);
-
-    printf("Todos os filosofos comeram %d vezes, fim da execucao.\n", MAX_REFEICAO);
 }

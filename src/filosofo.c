@@ -1,6 +1,6 @@
 #include "filosofo.h"
 
-pthread_mutex_t garfos[TAM]; // Cada garfo e representado por um mutex
+pthread_mutex_t garfos[TAM]; // Cda garfo e representado por um mutex
 
 // Pega o indice do garfo da esquerda
 int esquerda(int i) {

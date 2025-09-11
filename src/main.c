@@ -11,7 +11,8 @@ int bloqueios[TAM] = {0};
 int main(void) {
 
     int escolha;
-
+    
+    // Interface simples no terminal
     printf("1- DEADLOCK\n");
     printf("2- MONITOR\n");
     printf("3- SEMAFORO\n");

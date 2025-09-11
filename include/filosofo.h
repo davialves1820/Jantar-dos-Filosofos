@@ -8,7 +8,7 @@
 #include <pthread.h>
 
 #define TAM 5 // Define o numero de filosofos(threads)
-#define MAX_REFEICAO 2
+#define TEMPO_MAXIMO 15 // Em segundos
 
 extern pthread_mutex_t garfos[TAM]; // Cada garfo e representado por um mutex
 
