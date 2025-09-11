@@ -65,6 +65,7 @@ Ao iniciar, o programa exibirá um menu para que você escolha qual solução do
 2- MONITOR
 3- SEMAFORO
 4- SEMAFORO COM CONTROLE
+0- SAIR
 Opcao:
 ```
 
