@@ -1,0 +1,29 @@
+name: CI
+
+on: 
+  push:
+    branches: [main]
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v5.0.0
+
+      - name: Docker Login
+        uses: docker/login-action@v3.5.0
+        with:
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: .
+          file: .
+          push: true
+          tags: |
+            davialves1820/jantar_filosofos:v1
+            davialves1820/jantar_filosofos:latest
