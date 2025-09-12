@@ -22,7 +22,6 @@ jobs:
         uses: docker/build-push-action@v6.18.0
         with:
           context: .
-          file: .
           push: true
           tags: |
             davialves1820/jantar_filosofos:v1
