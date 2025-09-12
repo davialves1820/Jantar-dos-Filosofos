@@ -91,4 +91,17 @@ Para a avaliação de desempenho serão comparadas os seguintes parâmetros para
 
 ---
 
-## 📌 Divisão de Tarefas
+## 📝 Divisão de Tarefas
+
+| Atividade                                                     | Responsável                                     |
+|---------------------------------------------------------------|-------------------------------------------------|
+| Pesquisa teórica sobre o problema do Jantar dos Filósofos     | Davi Alves, Ryan Caetano e Larissa de Carvalho |
+| Implementação do caso do deadlock     | Davi Alves, Ryan Caetano e Larissa de Carvalho |
+| Implementação da solução do  semáfaro     | Davi Alves, Ryan Caetano e Larissa de Carvalho |
+| Implementaçaõ da solução do monitor     | Davi Alves, Ryan Caetano e Larissa de Carvalho |
+| Criação do Makefile e estrutura de pastas do projeto     | Davi Alves |
+| Desenvolvimento dos arquivos `.c` e `.h`     | Davi Alves, Ryan Caetano e Larissa de Carvalho |
+| Adição dos parâmetros para comparação de desempenho     | Davi Alves e Larissa de Carvalho |
+| Testes e análise de desempenho     | Davi Alves, Ryan Caetano e Larissa de Carvalho |
+| Documentação do projeto (README e comentários no código)     | Davi Alves, Ryan Caetano e Larissa de Carvalho |
+| Github action/ Docker     | Davi Alves |
