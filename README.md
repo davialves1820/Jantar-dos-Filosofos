@@ -24,9 +24,12 @@ Durante a apresentação final, será feita uma **demonstração prática** do f
 ---
 
 ## 🛠️ Tecnologias Utilizadas
-- **Linguagens:** C 
-- **Sistema Operacional:** Linux (Recomendado: Ambiente WSL ou nativo basedo em Debian/Ubuntu)
-- **Ferramentas adicionais:** Makefile, GitHub, Docker (opcional)  
+- **Linguagens:** C;
+- **Sistema Operacional:** Linux (Ubuntu);
+- **Ferramentas adicionais:** Makefile, GitHub, Docker.
+
+### Link Dockerhub
+https://hub.docker.com/r/davialves1820/jantar_filosofos
 
 ---
 
