@@ -1,11 +1,13 @@
 #include "solucao_semaforo_controle.h"
 
-sem_t garcom_controle; // O semáforo que regula a quantidade máxima de filósofos comendo a qualquer momento.
+// Garçom: semáforo que regula a quantidade máxima 
+// de filósofos comendo a qualquer momento.
+sem_t garcom_controle;
 
 void *vida_filosofo_semaforo_controle(void *arg) {
     int id = *(int*)arg; // Fazendo cast de ponteiro genérico para inteiro
 
-    // Inicializa métricas
+    // Inicializa métricas para cada filósofo
     refeicoes[id] = 0;
     tempo_espera[id] = 0.0;
     bloqueios[id] = 0;
@@ -15,7 +17,8 @@ void *vida_filosofo_semaforo_controle(void *arg) {
         printf("Filosofo SEMAFORO_CONTROLE %d esta pensando...\n", id);
         sleep(1);
 
-        // Inicia medicao do tempo de espera
+        // -- Seção Crítica--
+        // Inicia medição do tempo de espera.
         struct timespec start;
         clock_gettime(CLOCK_MONOTONIC, &start);
 
@@ -24,7 +27,8 @@ void *vida_filosofo_semaforo_controle(void *arg) {
         if (val == 0) bloqueios[id]++;
         sem_wait(&garcom_controle); // Pedindo "permissão" para o garçom de modo a garantir que há espaço para todos comerem
 
-        // Pegar garfos com ordem diferente para ímpares (quebra ciclo para evitar starvation)
+        // Pegar garfos com ordem diferente para ímpares (quebra ciclo para evitar deadlock e starvation)
+        // Os mutexes garantem que os garfos são recursos exclusivos.
         if (id % 2 == 0) {
             pthread_mutex_lock(&garfos[esquerda(id)]);
             printf("Filosofo %d pegou o garfo da esquerda\n", id);
@@ -37,7 +41,7 @@ void *vida_filosofo_semaforo_controle(void *arg) {
             printf("Filosofo %d pegou o garfo da esquerda e esta comendo.\n", id);
         }
 
-        // Mede o tempo de espera para pegar os garfos
+        // Mede o tempo total de espera para pegar os garfos
         struct timespec end;
         clock_gettime(CLOCK_MONOTONIC, &end);
         double espera = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
@@ -46,6 +50,8 @@ void *vida_filosofo_semaforo_controle(void *arg) {
         // Come
         sleep(2);
         refeicoes[id]++ ; // Incrementa o numero de refeicoes
+
+        // -- Fim da Seção Crítica --
 
         // Devolve os garfos na ordem inversa
         if (id % 2 == 0) {
@@ -73,28 +79,34 @@ void init_semaforo_controle(void) {
     pthread_t filosofos[TAM];
     int ids[TAM];
 
+    // Inicializa os mutexes que representam os garfos.
     for (int i = 0; i < TAM; i++) {
         pthread_mutex_init(&garfos[i], NULL);
     }
 
-    sem_init(&garcom_controle, 0, TAM - 1); // Inicializa o semáforo do garçom com valor TAM-1
+    // Inicializa o semáforo do garçom com valor TAM-1
+    // Garante pelo menos um garfo livre -> quebra espera circular.
+    sem_init(&garcom_controle, 0, TAM - 1); 
 
+    // Cria as threads (filósofos)
     for (int i = 0; i < TAM; i++) {
         ids[i] = i;
         pthread_create(&filosofos[i], NULL, vida_filosofo_semaforo_controle, &ids[i]);
     }
 
+    // Espera todas as threads finalizarem.
     for (int i = 0; i < TAM; i++) {
         pthread_join(filosofos[i], NULL);
     }
 
-    sem_destroy(&garcom_controle); // Destroi o semáforo do garçom
+    // Destroi o semáforo do garçom
+    sem_destroy(&garcom_controle); 
 
     // Calcula o tempo total de execução
     clock_gettime(CLOCK_MONOTONIC, &fim);
     double tempo = (fim.tv_sec - inicio.tv_sec) + (fim.tv_nsec - inicio.tv_nsec) / 1e9;
 
-    // Metrica para saber se ouve starvation
+    // Metrica para saber se houve starvation
     double limite_espera = 3; // Em segundos
 
     // Calculo e exibicao das metricas
