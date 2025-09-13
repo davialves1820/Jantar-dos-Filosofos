@@ -45,7 +45,7 @@ https://hub.docker.com/r/davialves1820/jantar_filosofos
 
 Clone o repositório e acesse a pasta do projeto:
 ```bash
-git clone https://github.com/davialves1820/Trabalho-SO.git
+git clone https://github.com/davialves1820/Jantar-dos-Filosofos.git
 cd Trabalho-SO
 ```
 ### Compilação
