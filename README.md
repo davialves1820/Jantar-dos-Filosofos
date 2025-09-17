@@ -9,18 +9,13 @@
 
 ## 📖 Descrição do Projeto
 Este repositório contém a implementação do projeto final da disciplina de **Sistemas Operacionais**.  
-O objetivo é aplicar na prática os conceitos vistos em sala de aula, por meio do desenvolvimento de um projeto em **C no Linux**.  
 
-O problema escolhido para o projeto foi o The Dining-Philosophers Problem( Jantar dos Filósofos):
+Proposto por Edsger W. Dijkstra em 1965, o Jantar dos Filósofos é um problema clássico de sincronização em sistemas operacionais.
+Ele descreve cinco filósofos sentados ao redor de uma mesa circular que alternam entre pensar e comer, necessitando de dois hashis (um à esquerda e outro à direita) para se alimentar.
 
-O Jantar dos Filósofos, proposto por Edsger W. Dijkstra em 1965, é um problema clássico de sincronização em sistemas operacionais. Ele descreve cinco filósofos sentados em uma mesa circular que alternam entre pensar e comer, precisando de dois hashis (um à esquerda e outro à direita) para se alimentar.
+O principal desafio é evitar condições de deadlock (quando todos pegam um hashi e ficam bloqueados esperando o outro) e starvation (quando um filósofo nunca consegue acesso aos dois hashis para comer).
 
-O desafio está em evitar problemas de deadlock (quando todos pegam um hashi e ficam bloqueados esperando o outro, sem progresso) e starvation (quando um filósofo tenta repetidamente pegar os hashis mas nunca consegue comer).
-
-O objetivo do problema é projetar algoritmos que coordenem o uso dos recursos compartilhados (hashis), garantindo que todos os filósofos possam eventualmente comer, sem impasse nem inanição.
-
-Durante a apresentação final, será feita uma **demonstração prática** do funcionamento do sistema, bem como uma **análise de desempenho** comparando diferentes casos de uso.
-
+O objetivo da solução é projetar algoritmos que coordenem o acesso a recursos compartilhados, garantindo que todos os filósofos possam eventualmente comer, sem impasses nem inanição.
 ---
 
 ## 🛠️ Tecnologias Utilizadas
@@ -97,7 +92,7 @@ Digite o número correspondente à solução desejada e pressione <kbd>Enter</kb
 
 Além disso, também foi considerado o **caso padrão**, no qual pode ocorrer *deadlock*.
 
-**Observação:** Foram considerados os resultados medios das solucoes para a comparacao de resultados.
+**Observação:** Foram considerados os resultados médios das soluções para a comparação dos resultados.
 
 ---
 
@@ -160,6 +155,8 @@ Distribuição justa com pequeno controle adicional, mantendo desempenho semelha
 ---
 
 ## 🖼️ Demonstração
+
+
 
 ---
 
