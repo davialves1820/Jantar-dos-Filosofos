@@ -82,11 +82,80 @@ Digite o número correspondente à solução desejada e pressione <kbd>Enter</kb
 
 ---
 
-## 📊 Avaliação de Desempenho
-Para a avaliação de desempenho serão comparadas os seguintes parâmetros para cada execução:
+# 📊 Avaliação de Desempenho
+
+## Para a avaliação de desempenho serão comparadas os seguintes parâmetros para cada execução:
 - Tempo de espera individual para pegar permissão do garçom: quanto tempo cada filósofo teve que esperar antes de conseguir acesso ao recurso compartilhado, ou seja, antes de começar a pegar os garfos e comer;
 - Número de bloqueios: sinaliza quantas vezes uma thread (filósofo) tentou acessar um recurso crítico (como garfos ou semáforos) e teve que esperar porque o recurso estava ocupado;
 - Tempo total da execução do programa.
+
+## Foram testadas três abordagens diferentes:
+
+1. **Solução Monitor**
+2. **Solução Semáforo**
+3. **Solução Semáforo com Controle**
+
+Além disso, também foi considerado o **caso padrão**, no qual pode ocorrer *deadlock*.
+
+**Observação:** Foram considerados os resultados medios das solucoes para a comparacao de resultados.
+
+---
+
+## Resultados Individuais
+
+### Solução Monitor
+
+- **Filósofos comendo:** Todos comeram 4 vezes, exceto o Filósofo 3, que comeu apenas 1 vez.
+- **Espera média:** Variou de 0.75s a 12.02s.
+- **Starvation:** Sim (Filósofo 3).
+- **Bloqueios totais:** 15
+- **Tempo médio de espera por refeição:** 3.40s
+
+**Observação:** A espera alta e o número reduzido de refeições do Filósofo 3 indicam possível *starvation*.
+
+---
+
+### Solução Semáforo
+
+- **Refeições bem distribuídas:** Variação entre 3 e 4 por filósofo.
+- **Espera média:** De 1.28s a 2.60s.
+- **Starvation:** Não ocorreu.
+- **Bloqueios totais:** 7
+- **Tempo médio de espera por refeição:** 1.95s
+
+Melhor distribuição de recursos e ausência de starvation.
+
+---
+
+### Solução Semáforo com Controle
+
+- **Refeições:** Igual à solução anterior (17 totais).
+- **Espera média:** De 0.77s a 2.69s.
+- **Starvation:** Não ocorreu.
+- **Bloqueios totais:** 7
+- **Tempo médio de espera por refeição:** 1.97s
+
+Distribuição justa com pequeno controle adicional, mantendo desempenho semelhante ao semáforo puro.
+
+---
+
+## Comparativo Geral
+
+| Métrica                       | Monitor        | Semáforo       | Semáforo com Controle |
+|------------------------------|----------------|----------------|------------------------|
+| Total de Refeições           | 17             | 17             | 17                     |
+| Starvation                   | 1              | 0              | 0                      |
+| Bloqueios Totais             | 15             | 7              | 7                      |
+| Tempo Médio de Espera        | 3.40 s         | 1.95 s         | 1.97 s                 |
+| Desbalanceamento de Refeições| Alto (1 refeição) | Baixo         | Baixo                  |
+
+---
+
+## Observações Finais
+
+- O **caso padrão** levar a *deadlock*, onde todos os filósofos pegam um talher e ficam esperando indefinidamente pelo segundo.
+- A **solução com monitor** apresentou maior número de bloqueios e evidência de starvation.
+- As **soluções com semáforos**, especialmente com controle, proporcionam uma melhor distribuição de recursos, evitando starvation e deadlocks, com tempos de espera menores e mais uniformes.
 
 ---
 
