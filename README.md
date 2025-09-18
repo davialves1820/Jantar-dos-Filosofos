@@ -38,7 +38,7 @@ https://hub.docker.com/r/davialves1820/jantar_filosofos
 - Pasta **include**: Contém os cabeçalho dos arquivos (.h);
 - Pasta **build**: Contém os arquivos binários (.o) gerados durante a compilação;
 - Arquivo **app**: Arquivo executável.
-- Arquivo **Makefile**: Árquivo com as instruções para compilação do projeto.
+- Arquivo **Makefile**: Arquivo com as instruções para compilação do projeto.
 
 ## ⚙️ Como Compilar e Executar
 
