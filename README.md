@@ -95,17 +95,51 @@ Digite o número correspondente à solução desejada e pressione <kbd>Enter</kb
 
 ## Foram testadas três abordagens diferentes:
 
-1. **Solução Monitor**
-2. **Solução Semáforo**
-3. **Solução Semáforo com Controle**
+### 1. Solução com Monitor
+**Princípio:** Utiliza um monitor baseado em `pthread_mutex_t` e `pthread_cond_t` para controlar o acesso aos garfos e evitar condições de corrida.
 
-Além disso, também foi considerado o **caso padrão**, no qual pode ocorrer *deadlock*.
+**Funcionamento:**
+- Cada filósofo tem um estado: **PENSANDO**, **FAMINTO** ou **COMENDO**.
+- Quando um filósofo fica faminto, ele entra em uma seção crítica protegida pelo mutex do monitor.
+- A função `teste()` verifica se os filósofos vizinhos estão comendo; caso contrário, permite que o filósofo faminto coma.
+- Enquanto não for possível comer, o filósofo fica bloqueado em uma condição (`pthread_cond_wait`) até ser sinalizado que pode pegar os garfos.
+- Após comer, o filósofo devolve os garfos, muda seu estado para PENSANDO e sinaliza os vizinhos para que possam comer.
 
-**Observação:** Foram considerados os resultados médios das soluções para a comparação dos resultados.
+**Vantagem:** Garante exclusão mútua e evita deadlocks usando um monitor centralizado.
 
 ---
 
-## Resultados Individuais
+### 2. Solução com Semáforo (Garçom)
+**Princípio:** Usa um semáforo (`sem_t garcom`) para limitar a quantidade de filósofos que podem tentar comer simultaneamente.
+
+**Funcionamento:**
+- O semáforo é inicializado com `TAM-1`, garantindo que no máximo `TAM-1` filósofos possam tentar pegar garfos ao mesmo tempo.
+- Antes de pegar os garfos, cada filósofo faz `sem_wait(&garcom)` para pedir permissão ao garçom.
+- Após pegar os garfos e comer, o filósofo faz `sem_post(&garcom)` para liberar a vaga no semáforo.
+- O acesso a cada garfo ainda é controlado por mutexes individuais para garantir exclusão mútua.
+
+**Vantagem:** Evita deadlocks de forma simples, permitindo que sempre haja pelo menos um filósofo que consiga pegar os dois garfos.
+
+---
+
+### 3. Solução com Semáforo e Controle de Ordem
+**Princípio:** Combina o semáforo do garçom com uma estratégia de controle de ordem para pegar garfos, evitando deadlocks e starvation.
+
+**Funcionamento:**
+- O semáforo é inicializado com `TAM-1`, como na solução anterior.
+- Os filósofos pares pegam primeiro o garfo da esquerda, depois o da direita; os ímpares fazem o inverso.
+- Essa alternância na ordem de pegar os garfos quebra ciclos de espera circular, prevenindo deadlocks.
+- Após comer, os filósofos devolvem os garfos na ordem inversa e liberam o semáforo do garçom.
+
+**Vantagem:** Reduz ainda mais o risco de starvation em comparação com a solução apenas com semáforo.
+
+
+**Observação:** Além disso, também foi considerado o **caso padrão**, no qual ocorre *deadlock*.
+Foram considerados os resultados médios das soluções para a comparação dos resultados.
+
+---
+
+## 📌 Resultados Individuais
 
 ### Solução Monitor
 
@@ -143,7 +177,7 @@ Distribuição justa com pequeno controle adicional, mantendo desempenho semelha
 
 ---
 
-## Comparativo Geral
+## 📄Comparativo Geral
 
 | Métrica                       | Monitor        | Semáforo       | Semáforo com Controle |
 |------------------------------|----------------|----------------|------------------------|
