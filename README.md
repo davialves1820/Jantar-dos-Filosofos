@@ -136,6 +136,7 @@ Digite o número correspondente à solução desejada e pressione <kbd>Enter</kb
 
 **Observação:** Além disso, também foi considerado o **caso padrão**, no qual ocorre *deadlock*.
 Foram considerados os resultados médios das soluções para a comparação dos resultados.
+Foi considerado um tempo de execução de 15 segundos para todas as soluções.
 
 ---
 
