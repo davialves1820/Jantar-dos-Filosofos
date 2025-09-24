@@ -1,6 +1,6 @@
-# 📌 Projeto Final – Sistemas Operacionais (2025.1)
+# Projeto Final – Sistemas Operacionais (2025.1)
 
-## 👥 Integrantes
+## Integrantes
 
 - Davi Alves Rodrigues
 - Ryan Caetano Cesar de Araújo
@@ -8,7 +8,7 @@
 
 ---
 
-## 📖 Descrição do Projeto
+## Descrição do Projeto
 
 Este repositório contém a implementação do projeto final da disciplina de **Sistemas Operacionais**.
 
@@ -20,7 +20,7 @@ O principal desafio é evitar condições de deadlock (quando todos pegam um has
 O objetivo da solução é projetar algoritmos que coordenem o acesso a recursos compartilhados, garantindo que todos os filósofos possam eventualmente comer, sem impasses nem inanição.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Linguagens:** C;
 - **Sistema Operacional:** Linux (Ubuntu);
@@ -32,7 +32,7 @@ https://hub.docker.com/r/davialves1820/jantar_filosofos
 
 ---
 
-## 🗂️ Organização
+## Organização
 
 - Pasta **src**: Contém os arquivos-fonte(.c);
 - Pasta **include**: Contém os cabeçalho dos arquivos (.h);
@@ -62,7 +62,7 @@ make
 ```
 
 ---
-## 💻 Instruções do Docker
+## Instruções do Docker
 
 Baixar a imagem do Docker
 ```bash 
@@ -74,7 +74,7 @@ sudo docker run -it davialves1820/jantar_filosofos:latest
 ```
 
 
-## 💻 Instruções de Uso
+## Instruções de Uso
 
 Ao iniciar, o programa exibirá um menu para que você escolha qual solução do problema dos filósofos deseja executar:
 
@@ -96,7 +96,7 @@ Digite o número correspondente à solução desejada e pressione <kbd>Enter</kb
 
 ---
 
-# 📊 Avaliação de Desempenho
+# Avaliação de Desempenho
 
 ## Para a avaliação de desempenho serão comparadas os seguintes parâmetros para cada execução:
 
@@ -151,7 +151,7 @@ Foi considerado um tempo de execução de 15 segundos para todas as soluções.
 
 ---
 
-## 📌 Resultados Individuais
+## Resultados Individuais
 
 ### Solução Monitor
 
@@ -189,7 +189,7 @@ Distribuição justa com pequeno controle adicional, mantendo desempenho semelha
 
 ---
 
-## 📄Comparativo Geral
+##Comparativo Geral
 
 | Métrica                       | Monitor        | Semáforo       | Semáforo com Controle |
 |------------------------------|----------------|----------------|------------------------|
@@ -209,11 +209,11 @@ Distribuição justa com pequeno controle adicional, mantendo desempenho semelha
 
 ---
 
-## 🖼️ Demonstração
+## Demonstração
 
 ---
 
-## 📝 Divisão de Tarefas
+## Divisão de Tarefas
 
 | Atividade                                                     | Responsável                                     |
 |---------------------------------------------------------------|-------------------------------------------------|
