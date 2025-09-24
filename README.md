@@ -62,6 +62,17 @@ make
 ```
 
 ---
+## 💻 Instruções do Docker
+
+Baixar a imagem do Docker
+```bash 
+sudo docker pull davialves1820/jantar_filosofos:latest
+```
+Rodar o container
+```bash
+sudo docker run -it davialves1820/jantar_filosofos:latest
+```
+
 
 ## 💻 Instruções de Uso
 
