@@ -40,7 +40,7 @@ https://hub.docker.com/r/davialves1820/jantar_filosofos
 - Arquivo **app**: Arquivo executável.
 - Arquivo **Makefile**: Arquivo com as instruções para compilação do projeto.
 
-## ⚙️ Como Compilar e Executar
+## Como Compilar e Executar
 
 Clone o repositório e acesse a pasta do projeto:
 
@@ -189,7 +189,7 @@ Distribuição justa com pequeno controle adicional, mantendo desempenho semelha
 
 ---
 
-##Comparativo Geral
+##  Comparativo Geral
 
 | Métrica                       | Monitor        | Semáforo       | Semáforo com Controle |
 |------------------------------|----------------|----------------|------------------------|
