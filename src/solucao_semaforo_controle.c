@@ -48,7 +48,8 @@ void *vida_filosofo_semaforo_controle(void *arg) {
         tempo_espera[id] += espera;
 
         // Come
-        sleep(2);
+        int tempo_comendo = (rand() % 5) + 1; // Aleatório entre 1 e 5 segundos
+        sleep(tempo_comendo);
         refeicoes[id]++ ; // Incrementa o numero de refeicoes
 
         // -- Fim da Seção Crítica --

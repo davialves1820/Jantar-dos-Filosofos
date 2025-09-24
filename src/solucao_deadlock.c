@@ -32,7 +32,9 @@ void *vida_filosofo_deadlock(void *arg) {
         double espera = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
         tempo_espera[id] += espera;
 
-        sleep(2); // Simula tempo para comer
+        // Come
+        int tempo_comendo = (rand() % 5) + 1; // Aleatório entre 1 e 5 segundos
+        sleep(tempo_comendo);
         refeicoes[id]++ ; // Incrementa o numero de refeicoes
 
         // Devolve os garfos, primeiro o da direita, depois o da esquerda
@@ -71,7 +73,7 @@ void init_deadlock(void) {
     clock_gettime(CLOCK_MONOTONIC, &fim);
     double tempo = (fim.tv_sec - inicio.tv_sec) + (fim.tv_nsec - inicio.tv_nsec) / 1e9;
 
-    // Metrica para saber se ouve starvation
+    // Metrica para saber se houve starvation
     double limite_espera = 5; // Em segundos
 
     // Calculo e exibicao das metricas

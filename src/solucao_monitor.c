@@ -76,7 +76,8 @@ static void faminto(int id) {
     pegar_garfos(id);
 
     // Come
-    sleep(2);
+    int tempo_comendo = (rand() % 5) + 1; // Aleatório entre 1 e 5 segundos
+    sleep(tempo_comendo);
     // sleep deve ocorrer com o monitor destrancado para nao inibir filosofos que logicamente conseguiriam comer
     refeicoes[id]++; // Incrementa o numero de refeicoes
 
